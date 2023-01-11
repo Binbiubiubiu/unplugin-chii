@@ -22,7 +22,7 @@ export default defineConfig({
 })
 ```
 
-Example: [`vite-playground/`](./vite-playground/)
+Example: [`vite-playground/`](https://github.com/Binbiubiubiu/unplugin-chii/tree/main/vite-playground)
 
 <br></details>
 
@@ -45,7 +45,7 @@ module.exports = {
 }
 ```
 
-Example: [`webpack-playground/`](./webpack-playground/)
+Example: [`webpack-playground/`](https://github.com/Binbiubiubiu/unplugin-chii/tree/main/webpack-playground/)
 
 <br></details>
 
