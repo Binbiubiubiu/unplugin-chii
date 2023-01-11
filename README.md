@@ -22,11 +22,9 @@ export default defineConfig({
 })
 ```
 
-Example: [`playground/`](./playground/)
+Example: [`vite-playground/`](./vite-playground/)
 
 <br></details>
-
-<details>
 
 
 <details>
@@ -34,13 +32,20 @@ Example: [`playground/`](./playground/)
 
 ```ts
 // webpack.config.js
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   /* ... */
   plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+    }),
     require('unplugin-chii/webpack')({ /* options */ })
   ]
 }
 ```
+
+Example: [`webpack-playground/`](./webpack-playground/)
 
 <br></details>
 
