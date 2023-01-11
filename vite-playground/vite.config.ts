@@ -4,7 +4,9 @@ import Unplugin from '../src/vite'
 
 export default defineConfig({
   plugins: [
+    Unplugin({
+      port: 8080,
+    }),
     Inspect(),
-    Unplugin(),
   ],
 })
