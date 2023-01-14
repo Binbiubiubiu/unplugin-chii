@@ -36,16 +36,6 @@
       "require": "./dist/webpack.cjs",
       "import": "./dist/webpack.js"
     },
-    "./rollup": {
-      "types": "./dist/rollup.d.ts",
-      "require": "./dist/rollup.cjs",
-      "import": "./dist/rollup.js"
-    },
-    "./esbuild": {
-      "types": "./dist/esbuild.d.ts",
-      "require": "./dist/esbuild.cjs",
-      "import": "./dist/esbuild.js"
-    },
     "./nuxt": {
       "types": "./dist/nuxt.d.ts",
       "require": "./dist/nuxt.cjs",
@@ -77,8 +67,9 @@
     "dev": "tsup --watch src",
     "build:fix": "esno scripts/postbuild.ts",
     "lint": "eslint .",
-    "play:vite": "npm -C vite-playground run dev",
-    "play:webpack": "npm -C webpack-playground run serve",
+    "play:vite": "npm -C playgrounds/vite run serve",
+    "play:webpack": "npm -C playgrounds/webpack run serve",
+    "play:chii": "chii start --port 8080",
     "prepublishOnly": "npm run build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
@@ -91,13 +82,12 @@
     "chii": "^1.8.0",
     "kolorist": "^1.6.0",
     "local-access": "^1.1.0",
+    "lodash": "^4.17.21",
     "unplugin": "^1.0.1"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.33.1",
     "@types/node": "^18.11.13",
-    "@types/object.pick": "^1.3.2",
-    "@types/yargs-unparser": "^2.0.1",
     "@webpack-cli/generators": "^3.0.1",
     "bumpp": "^8.2.1",
     "chalk": "^5.2.0",
@@ -113,6 +103,7 @@
     "vite": "^4.0.0",
     "vitest": "^0.25.7",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   }
 }

@@ -2,8 +2,9 @@ import { createUnplugin } from 'unplugin'
 import { bold, cyan, green } from 'kolorist'
 import localAccess from 'local-access'
 import type HtmlWebpackPluginType from 'html-webpack-plugin'
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import type { Options } from './types'
-import { injectClientScript, startServer } from './server'
+import { ChiiServer } from './server'
 
 type HtmlWebpackPlugin = typeof HtmlWebpackPluginType
 
@@ -32,7 +33,8 @@ export default createUnplugin<Options>((options = {}) => {
     chiiUrl.network = url
   }
 
-  const ics = injectClientScript(options, chiiUrl.network)
+  const chiiServer = new ChiiServer(options)
+  const ics = chiiServer.injectClientScript(chiiUrl.network)
 
   return {
     name,
@@ -51,38 +53,41 @@ export default createUnplugin<Options>((options = {}) => {
 
       const pluginName = `${name}/webpack`
       const logger = compiler.getInfrastructureLogger(pluginName)
-      const { devServer } = compiler.options
-      if (devServer) {
-        const cb = devServer.onListening ?? (() => {})
-        devServer.onListening = (server: any) => {
-          if (!server)
-            return
-          cb(server)
-          logger.info(`Chii starting server at ${cyan(chiiUrl.local)}`)
-        }
+
+      let htmlPlugin: HtmlWebpackPlugin
+      try {
+        htmlPlugin = require(
+          'html-webpack-plugin',
+        )
+      }
+      catch (e) {
+        return
       }
 
-      (async (compiler) => {
-        let htmlPlugin: HtmlWebpackPlugin
-        try {
-          htmlPlugin = await import('html-webpack-plugin') as unknown as HtmlWebpackPlugin
+      compiler.hooks.compilation.tap(pluginName, (compilation) => {
+        htmlPlugin
+          .getHooks(compilation)
+          .alterAssetTagGroups.tapPromise(pluginName, async ops =>
+            ics.webpack(ops),
+          )
+      })
+
+      const devServer = compiler.options.devServer as DevServerConfiguration
+      if (devServer) {
+        const onListening = devServer.onListening
+        devServer.onListening = (devServer) => {
+          if (!devServer)
+            return
+          onListening?.(devServer)
+          logger.info(`Chii starting server at ${cyan(chiiUrl.local)}`)
+          chiiServer.listen()
         }
-        catch (e) {
-          return
-        }
-        compiler.hooks.compilation.tap(pluginName, (compilation) => {
-          htmlPlugin.getHooks(compilation).alterAssetTagGroups.tapPromise(pluginName, async ops => ics.webpack(ops))
-        })
-        startServer(options)
-      })(compiler)
+      }
     },
     vite: {
       enforce: 'pre',
       apply(_, { command }) {
         return command === 'serve'
-      },
-      async configResolved() {
-        startServer(options)
       },
       configureServer(server) {
         const _print = server.printUrls
@@ -95,13 +100,13 @@ export default createUnplugin<Options>((options = {}) => {
             `  ${green('➜')}  ${bold('Chii')}: ${colorUrl(chiiUrl.local)}`,
           )
         }
+
+        chiiServer.configureViteDevServer(server)
       },
       transformIndexHtml(html) {
         return {
           html,
-          tags: [
-            ics.vite(),
-          ],
+          tags: [ics.vite()],
         }
       },
     },

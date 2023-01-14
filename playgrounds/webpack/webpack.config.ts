@@ -1,15 +1,11 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
+/// <reference path="node_modules/webpack-dev-server/types/lib/Server.d.ts"/>
 
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import type { Configuration as WebpackConfiguration } from 'webpack'
-import type { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server'
+import type { Configuration } from 'webpack'
 
-import unplugin from '../src/webpack'
-
-interface Configuration extends WebpackConfiguration {
-  devServer?: WebpackDevServerConfiguration
-}
+import unplugin from '../../src/webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 

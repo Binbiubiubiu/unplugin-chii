@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
-import Unplugin from '../src/vite'
+import Unplugin from '../../src/vite'
 
 export default defineConfig({
   plugins: [
     Unplugin({
-      port: 8080,
+      port: 8081,
     }),
-    Inspect(),
+    Inspect({}),
   ],
 })
