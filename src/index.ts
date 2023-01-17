@@ -87,9 +87,9 @@ export default createUnplugin<Options>((options = {}) => {
             return
           onListening?.(devServer)
           logger.info(`Chii starting server at ${cyan(chiiUrl.local)}`)
-          chiiServer.listen()
         }
       }
+      chiiServer.listen()
     },
     vite: {
       enforce: 'pre',
