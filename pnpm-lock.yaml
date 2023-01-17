@@ -5,6 +5,7 @@ importers:
   .:
     specifiers:
       '@antfu/eslint-config': ^0.33.1
+      '@types/lodash': ^4.14.191
       '@types/node': ^18.11.13
       '@webpack-cli/generators': ^3.0.1
       bumpp: ^8.2.1
@@ -36,6 +37,7 @@ importers:
       unplugin: 1.0.1
     devDependencies:
       '@antfu/eslint-config': 0.33.1_iukboom6ndih5an6iafl45j2fe
+      '@types/lodash': 4.14.191
       '@types/node': 18.11.18
       '@webpack-cli/generators': 3.0.1_rjsyjcrmk25kqsjzwkvj3a2evq
       bumpp: 8.2.1
@@ -57,9 +59,11 @@ importers:
 
   playgrounds/vite:
     specifiers:
+      unplugin-chii: workspace:*
       vite: ^4.0.0
       vite-plugin-inspect: ^0.7.10
     devDependencies:
+      unplugin-chii: link:../..
       vite: 4.0.4
       vite-plugin-inspect: 0.7.14_vite@4.0.4
 
@@ -70,6 +74,7 @@ importers:
       esno: ^0.16.3
       html-webpack-plugin: ^5.5.0
       prettier: ^2.8.2
+      unplugin-chii: workspace:*
       webpack: ^5.75.0
       webpack-cli: ^5.0.1
       webpack-dev-server: ^4.11.1
@@ -79,6 +84,7 @@ importers:
       esno: 0.16.3
       html-webpack-plugin: 5.5.0_webpack@5.75.0
       prettier: 2.8.3
+      unplugin-chii: link:../..
       webpack: 5.75.0_webpack-cli@5.0.1
       webpack-cli: 5.0.1_uaydpeuxkjjcxdbyfgk36cjdxi
       webpack-dev-server: 4.11.1_rjsyjcrmk25kqsjzwkvj3a2evq
@@ -952,6 +958,10 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/mdast/3.0.10:

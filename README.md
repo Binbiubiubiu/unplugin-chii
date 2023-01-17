@@ -30,6 +30,8 @@ Example: [`vite-playground/`](https://github.com/Binbiubiubiu/unplugin-chii/tree
 <details>
 <summary>Webpack</summary><br>
 
+> You need to set `WEBPACK_SERVE` environment variable to non-falsy
+
 ```ts
 // webpack.config.js
 const HtmlWebpackPlugin = require('html-webpack-plugin')

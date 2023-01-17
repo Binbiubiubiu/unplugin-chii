@@ -15,6 +15,7 @@
     "esno": "^0.16.3",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "^2.8.2",
+    "unplugin-chii": "workspace:*",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.11.1"

@@ -75,9 +75,6 @@
     "start": "esno src/index.ts",
     "test": "vitest"
   },
-  "peerDependencies": {
-    "html-webpack-plugin": ">=4.0.0"
-  },
   "dependencies": {
     "chii": "^1.8.0",
     "kolorist": "^1.6.0",
@@ -87,6 +84,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.33.1",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.13",
     "@webpack-cli/generators": "^3.0.1",
     "bumpp": "^8.2.1",

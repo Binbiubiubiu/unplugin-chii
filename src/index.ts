@@ -4,7 +4,7 @@ import localAccess from 'local-access'
 import type HtmlWebpackPluginType from 'html-webpack-plugin'
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import type { Options } from './types'
-import { ChiiServer } from './server'
+import { ChiiServer } from './core'
 
 type HtmlWebpackPlugin = typeof HtmlWebpackPluginType
 
@@ -65,11 +65,18 @@ export default createUnplugin<Options>((options = {}) => {
       }
 
       compiler.hooks.compilation.tap(pluginName, (compilation) => {
-        htmlPlugin
-          .getHooks(compilation)
-          .alterAssetTagGroups.tapPromise(pluginName, async ops =>
+        if (htmlPlugin.getHooks) {
+          htmlPlugin
+            .getHooks(compilation)
+            .alterAssetTagGroups.tapPromise(pluginName, async ops =>
+              ics.webpack(ops),
+            )
+        }
+        else {
+          (compilation.hooks as any).htmlWebpackPluginAlterAssetTags.tapPromise(pluginName, async (ops: any) =>
             ics.webpack(ops),
           )
+        }
       })
 
       const devServer = compiler.options.devServer as DevServerConfiguration

@@ -5,7 +5,7 @@ import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import type { Configuration } from 'webpack'
 
-import unplugin from '../../src/webpack'
+import unplugin from 'unplugin-chii/webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -31,10 +31,10 @@ const config: Configuration & {} = {
   ],
   module: {
     rules: [
-      {
-        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: 'asset',
-      },
+      // {
+      //   test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+      //   type: 'asset',
+      // },
 
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/

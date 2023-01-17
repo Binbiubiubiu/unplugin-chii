@@ -3,7 +3,6 @@ import { spawn } from 'child_process'
 import type { ChiiOptions } from 'chii'
 import type HtmlWebpackPlugin from 'html-webpack-plugin'
 import pick from 'lodash/pick'
-import type {} from '@umijs/utils'
 import type { HtmlTagDescriptor, ViteDevServer } from 'vite'
 import type { Options } from '../types'
 import { deserializeArgs } from './utils'
@@ -59,11 +58,12 @@ export class ChiiServer {
       webpack: (ops: {
         headTags: HtmlWebpackPlugin.HtmlTagObject[]
         bodyTags: HtmlWebpackPlugin.HtmlTagObject[]
+        body?: HtmlWebpackPlugin.HtmlTagObject[]
         outputName: string
         publicPath: string
         plugin: HtmlWebpackPlugin
       }) => {
-        ops.bodyTags.push({
+        (ops.bodyTags || ops.body)?.push({
           tagName: tag,
           attributes: attrs,
           voidTag: false,
