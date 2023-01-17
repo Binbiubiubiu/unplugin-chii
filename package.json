@@ -75,6 +75,9 @@
     "start": "esno src/index.ts",
     "test": "vitest"
   },
+  "peerDependencies": {
+    "html-webpack-plugin": ">=3.2.x"
+  },
   "dependencies": {
     "chii": "^1.8.0",
     "kolorist": "^1.6.0",
