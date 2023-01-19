@@ -3,8 +3,8 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    // threads: false,
-    // maxThreads: 1,
+    threads: false,
+    maxThreads: 1,
     // minThreads: 0,
     // isolate: false,
     coverage: {

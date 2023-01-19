@@ -40,7 +40,6 @@ jobs:
         node: [14.x, 16.x]
         os: [windows-latest, ubuntu-latest, macos-latest]
       fail-fast: false
-      max-parallel: 1
 
     steps:
       - uses: actions/checkout@v3
