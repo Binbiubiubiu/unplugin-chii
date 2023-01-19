@@ -39,6 +39,7 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
       await waitPort({
         port: +devServerOptions.port!,
       })
+      await delay(1)
     })
 
     afterAll(async () => {

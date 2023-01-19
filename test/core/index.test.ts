@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from 'vitest'
+import waitPort from 'wait-port'
 import { ChiiServer } from '../../src/core'
-import { delay, expectChiiServerIsRunning } from '../util'
+import { expectChiiServerIsRunning } from '../util'
 
 describe('core/index', async () => {
   let server: ChiiServer
@@ -16,7 +17,7 @@ describe('core/index', async () => {
 
   it('ChiiServer.listen and ChiiServer.close is ok', async () => {
     server.listen()
-    await delay(1)
+    await waitPort({ port: 8080 })
     try {
       await expectChiiServerIsRunning('http://localhost:8080/', 'index.html')
     }
@@ -32,7 +33,7 @@ describe('core/index', async () => {
     }
     server.configureViteDevServer(mockServer)
     mockServer.listen()
-    await delay(1)
+    await waitPort({ port: 8080 })
     try {
       await expectChiiServerIsRunning('http://localhost:8080/', 'index.html')
     }
