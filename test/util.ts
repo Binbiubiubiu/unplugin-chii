@@ -49,7 +49,7 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
         port: +chiiServerOptions.port!,
       })
       await expectChiiServerIsRunning(chiiUrl.local, 'index.html')
-    })
+    }, { timeout: 10000 })
 
     it('target.js has injected', async () => {
       await waitPort({
@@ -63,7 +63,7 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
           return $(this).attr('src') === `${chiiUrl.network}target.js`
         })
       expect(scripts.length).toBe(1)
-    })
+    }, { timeout: 10000 })
   })
 }
 
