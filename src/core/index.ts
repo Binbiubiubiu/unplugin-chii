@@ -54,7 +54,7 @@ export class ChiiServer {
       cwd: process.cwd(),
       stdio: ['inherit', 'ignore', 'inherit'],
       detached: false,
-      shell: process.platform === 'win32',
+      // shell: process.platform === 'win32',
     })
   }
 

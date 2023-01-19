@@ -36,10 +36,6 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
         detached: true,
         // shell: process.platform === 'win32',
       })
-      await waitPort({
-        port: +devServerOptions.port!,
-      })
-      await delay(1)
     })
 
     afterAll(async () => {
@@ -49,10 +45,16 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
     })
 
     it('chii page is ok', async () => {
+      await waitPort({
+        port: +chiiServerOptions.port!,
+      })
       await expectChiiServerIsRunning(chiiUrl.local, 'index.html')
     })
 
     it('target.js has injected', async () => {
+      await waitPort({
+        port: +devServerOptions.port!,
+      })
       const html = await fetch(devServerUrl.local).then(res => res.text())
       const $ = cheerio.load(html)
       const scripts = $('body')
