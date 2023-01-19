@@ -31,6 +31,7 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
     beforeAll(async () => {
       service = spawn('npm', ['run', `play:${namespace}`], {
         // stdio: ['inherit', 'ignore', 'inherit'],
+        cwd: process.cwd(),
         detached: true,
         shell: process.platform === 'win32',
       })
