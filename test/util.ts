@@ -34,7 +34,7 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
         // stdio: ['inherit', 'ignore', 'inherit'],
         cwd: process.cwd(),
         detached: true,
-        shell: process.platform === 'win32',
+        // shell: process.platform === 'win32',
       })
       await waitPort({
         port: +devServerOptions.port!,
