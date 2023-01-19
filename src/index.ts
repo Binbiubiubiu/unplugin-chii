@@ -43,15 +43,19 @@ export default createUnplugin<Options>((options = {}) => {
       }
 
       compiler.hooks.compilation.tap(pluginName, (compilation) => {
+        // above html-webpack-plugin@4.x
         if (htmlPlugin.getHooks) {
           htmlPlugin
             .getHooks(compilation)
             .alterAssetTagGroups.tapPromise(pluginName, async ops =>
               ics.webpack(ops),
             )
+          return
         }
-        else {
-          (compilation.hooks as any).htmlWebpackPluginAlterAssetTags.tapPromise(pluginName, async (ops: any) =>
+        // html-webpack-plugin@3.2
+        const hooks = compilation.hooks as any
+        if (hooks.htmlWebpackPluginAlterAssetTags) {
+          hooks.htmlWebpackPluginAlterAssetTags.tapPromise(pluginName, async (ops: any) =>
             ics.webpack(ops),
           )
         }
