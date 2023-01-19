@@ -103,6 +103,7 @@
     "html-webpack-plugin": "^5.5.0",
     "node-fetch": "^3.3.0",
     "nodemon": "^2.0.20",
+    "port-process-killer": "^1.0.3",
     "rimraf": "^3.0.2",
     "rollup": "^3.10.0",
     "terminate": "^2.6.1",
