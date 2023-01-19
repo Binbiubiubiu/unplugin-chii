@@ -5,6 +5,7 @@ import fetch from 'node-fetch'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import spawn from 'cross-spawn'
 import cheerio from 'cheerio'
+import terminate from 'terminate/promise'
 import type { Options as LocalAccessOptions } from 'local-access'
 import localAccess from 'local-access'
 
@@ -36,9 +37,9 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
       await delay(2)
     })
 
-    afterAll(() => {
+    afterAll(async () => {
       if (service && service.pid)
-        process.kill(-service.pid!)
+        await terminate(service.pid)
       service = null
     })
 
