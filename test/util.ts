@@ -60,7 +60,8 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
 }
 
 export async function expectChiiServerIsRunning(url: string, filename: string) {
-  const expectHtml = fs.readFileSync(fixtures(filename)).toString().replace(/[\r\n]/g, '')
+  const format = txt => txt.replace(/[\r\n]/g, '')
+  const expectHtml = fs.readFileSync(fixtures(filename)).toString()
   const html = await fetch(url).then(res => res.text())
-  expect(html).toEqual(expectHtml)
+  expect(format(html)).toEqual(format(expectHtml))
 }
