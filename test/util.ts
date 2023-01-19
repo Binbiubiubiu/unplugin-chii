@@ -8,6 +8,7 @@ import cheerio from 'cheerio'
 import terminate from 'terminate/promise'
 import type { Options as LocalAccessOptions } from 'local-access'
 import localAccess from 'local-access'
+import waitPort from 'wait-port'
 
 export const fixtures = (...args: string[]) =>
   path.join(__dirname, 'fixtures', ...args)
@@ -32,10 +33,12 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
       service = spawn('npm', ['run', `play:${namespace}`], {
         // stdio: ['inherit', 'ignore', 'inherit'],
         cwd: process.cwd(),
-        detached: false,
+        detached: true,
         shell: process.platform === 'win32',
       })
-      await delay(2)
+      await waitPort({
+        port: +devServerOptions.port!,
+      })
     })
 
     afterAll(async () => {
