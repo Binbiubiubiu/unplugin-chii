@@ -32,7 +32,7 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
       service = spawn('npm', ['run', `play:${namespace}`], {
         // stdio: ['inherit', 'ignore', 'inherit'],
         cwd: process.cwd(),
-        detached: true,
+        detached: false,
         shell: process.platform === 'win32',
       })
       await delay(2)
