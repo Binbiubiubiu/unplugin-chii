@@ -4,7 +4,6 @@ import type { ChildProcess } from 'child_process'
 import fetch from 'node-fetch'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import spawn from 'cross-spawn'
-import { portKill } from 'port-process-killer'
 import cheerio from 'cheerio'
 import terminate from 'terminate/promise'
 import type { Options as LocalAccessOptions } from 'local-access'
@@ -30,9 +29,6 @@ export function runPluginTest(ops: PluginTestConfigOptions) {
 
   describe(namespace, () => {
     beforeAll(async () => {
-      if (devServerOptions.port)
-        portKill(+devServerOptions.port, true)
-
       service = spawn('npm', ['run', `play:${namespace}`], {
         // stdio: ['inherit', 'ignore', 'inherit'],
         cwd: process.cwd(),
