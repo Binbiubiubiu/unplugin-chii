@@ -1,6 +1,6 @@
 # unplugin-chii
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-chii?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-chii)
+[![NPM version](https://img.shields.io/npm/v/unplugin-chii?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-chii) [![CI](https://github.com/Binbiubiubiu/unplugin-chii/actions/workflows/ci.yml/badge.svg)](https://github.com/Binbiubiubiu/unplugin-chii/actions/workflows/ci.yml) [![codecov](https://codecov.io/gh/Binbiubiubiu/unplugin-chii/branch/main/graph/badge.svg?token=lN8p3F3hYN)](https://codecov.io/gh/Binbiubiubiu/unplugin-chii)
 
 ## Install
 
