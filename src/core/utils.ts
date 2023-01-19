@@ -1,18 +1,20 @@
 import kebabCase from 'lodash/kebabCase'
 
-function deserializeKey(key: string, value: any): string[] {
+export function deserializeKey(key: string, value: any): string[] {
   key = `--${kebabCase(key)}`
+  if (!value)
+    return []
   switch (typeof value) {
     case 'boolean':
+      return [key]
     case 'string':
-      return value ? [`${key}`, `${value}`] : []
-    case 'undefined':
+      return [key, value]
     case 'object':
       return value === null
         ? []
         : deserializeArgs(value as Record<string, any>)
     default:
-      return [`${key}`, `${value}`]
+      return [key, `${value}`]
   }
 }
 

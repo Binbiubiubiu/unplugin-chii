@@ -5,7 +5,7 @@ import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import type { Configuration } from 'webpack'
 
-import unplugin from 'unplugin-chii/webpack'
+import unplugin from '../../src/webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -17,14 +17,13 @@ const config: Configuration & {} = {
   devServer: {
     open: false,
     port: 8081,
-    host: 'localhost',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
     unplugin({
-      port: 8082,
+      port: 8080,
     }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/

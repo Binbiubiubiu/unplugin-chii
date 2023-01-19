@@ -1,13 +1,14 @@
-import type { ChildProcessWithoutNullStreams } from 'child_process'
-import { spawn } from 'child_process'
+import type { ChildProcess } from 'child_process'
 import type { ChiiOptions } from 'chii'
 import type HtmlWebpackPlugin from 'html-webpack-plugin'
 import pick from 'lodash/pick'
 import type { HtmlTagDescriptor, ViteDevServer } from 'vite'
+import spawn from 'cross-spawn'
+import localAccess from 'local-access'
 import type { Options } from '../types'
 import { deserializeArgs } from './utils'
 
-let _service: ChildProcessWithoutNullStreams | null = null
+let _service: ChildProcess | null = null
 
 const CHII_ARGS = [
   'port',
@@ -21,31 +22,55 @@ const CHII_ARGS = [
 ] as (keyof ChiiOptions)[]
 
 export class ChiiServer {
-  constructor(readonly options: Options) {}
+  chiiUrl: ReturnType<typeof localAccess>
+  constructor(readonly options: Options) {
+    options = Object.assign(
+      {
+        port: 8080,
+        basePath: '/',
+        embedded: false,
+      },
+      options,
+    )
+    const chiiUrl = localAccess({
+      https: options.https,
+      port: options.port,
+      pathname: options.basePath,
+    })
+    if (options.domain) {
+      const url = `${options.https ? 'https' : 'http'}://${options.domain}${
+        options.basePath
+      }`
+      chiiUrl.local = url
+      chiiUrl.network = url
+    }
+    this.chiiUrl = chiiUrl
+  }
 
-  listen() {
+  async listen() {
     const { options } = this
     const args = deserializeArgs(pick(options, CHII_ARGS))
     _service = spawn('chii', ['start', ...args], {
       cwd: process.cwd(),
+      stdio: ['inherit', 'ignore', 'inherit'],
       detached: false,
-    })
-    _service.stderr.once('data', (data) => {
-      console.error(`[chii]:${data}`)
+      shell: process.platform === 'win32',
     })
   }
 
   close() {
+    // if (_service && _service.pid)
+    //   process.kill(-_service.pid)
     _service?.kill()
     _service = null
   }
 
-  injectClientScript(chiiUrl: string) {
+  injectClientScript() {
     const { options } = this
     const tag = 'script'
     const attrs = {
       embedded: options.embedded,
-      src: `${chiiUrl}target.js`,
+      src: `${this.chiiUrl.network}target.js`,
     } as Record<string, any>
     return {
       vite: () => {

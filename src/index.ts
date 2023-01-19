@@ -1,6 +1,5 @@
 import { createUnplugin } from 'unplugin'
 import { bold, cyan, green } from 'kolorist'
-import localAccess from 'local-access'
 import type HtmlWebpackPluginType from 'html-webpack-plugin'
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import type { Options } from './types'
@@ -11,30 +10,9 @@ type HtmlWebpackPlugin = typeof HtmlWebpackPluginType
 const name = 'unplugin-chii'
 
 export default createUnplugin<Options>((options = {}) => {
-  options = Object.assign(
-    {
-      port: 8080,
-      basePath: '/',
-      embedded: false,
-    },
-    options,
-  )
-
-  const chiiUrl = localAccess({
-    https: options.https,
-    port: options.port,
-    pathname: options.basePath,
-  })
-  if (options.domain) {
-    const url = `${options.https ? 'https' : 'http'}://${options.domain}${
-      options.basePath
-    }`
-    chiiUrl.local = url
-    chiiUrl.network = url
-  }
-
   const chiiServer = new ChiiServer(options)
-  const ics = chiiServer.injectClientScript(chiiUrl.network)
+  const { chiiUrl } = chiiServer
+  const ics = chiiServer.injectClientScript()
 
   return {
     name,
