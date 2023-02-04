@@ -10,16 +10,17 @@ npm i unplugin-chii
 
 ## Option
 
-| name     | type   | description |
-| -------- | ------ | ----------- |
-| port     | number |             |
-| host     | string |             |
-| domain   | string |             |
-| cdn      | string |             |
-| https    | string |             |
-| sslCert  | string |             |
-| sslKey   | string |             |
-| basePath | string |             |
+| name     | type    | description |
+| -------- | ------- | ----------- |
+| enable   | boolean |             |
+| port     | number  |             |
+| host     | string  |             |
+| domain   | string  |             |
+| cdn      | string  |             |
+| https    | string  |             |
+| sslCert  | string  |             |
+| sslKey   | string  |             |
+| basePath | string  |             |
 
 <details>
 <summary>Vite</summary><br>
