@@ -8,6 +8,19 @@
 npm i unplugin-chii
 ```
 
+## Option
+
+| name     | type   | description |
+| -------- | ------ | ----------- |
+| port     | number |             |
+| host     | string |             |
+| domain   | string |             |
+| cdn      | string |             |
+| https    | string |             |
+| sslCert  | string |             |
+| sslKey   | string |             |
+| basePath | string |             |
+
 <details>
 <summary>Vite</summary><br>
 
@@ -17,7 +30,9 @@ import Starter from 'unplugin-chii/vite'
 
 export default defineConfig({
   plugins: [
-    Starter({ /* options */ }),
+    Starter({
+      /* options */
+    }),
   ],
 })
 ```
@@ -25,7 +40,6 @@ export default defineConfig({
 Example: [`vite-playground/`](https://github.com/Binbiubiubiu/unplugin-chii/tree/main/vite-playground)
 
 <br></details>
-
 
 <details>
 <summary>Webpack</summary><br>
@@ -42,8 +56,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
-    require('unplugin-chii/webpack')({ /* options */ })
-  ]
+    require('unplugin-chii/webpack')({
+      /* options */
+    }),
+  ],
 }
 ```
 
@@ -58,7 +74,12 @@ Example: [`webpack-playground/`](https://github.com/Binbiubiubiu/unplugin-chii/t
 // nuxt.config.js
 export default {
   buildModules: [
-    ['unplugin-chii/nuxt', { /* options */ }],
+    [
+      'unplugin-chii/nuxt',
+      {
+        /* options */
+      },
+    ],
   ],
 }
 ```
@@ -75,11 +96,12 @@ export default {
 module.exports = {
   configureWebpack: {
     plugins: [
-      require('unplugin-chii/webpack')({ /* options */ }),
+      require('unplugin-chii/webpack')({
+        /* options */
+      }),
     ],
   },
 }
 ```
 
 <br></details>
-

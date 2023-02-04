@@ -26,7 +26,7 @@ export default createUnplugin<Options>((options = {}) => {
       return undefined
     },
     webpack(compiler) {
-      if (!process.env.WEBPACK_SERVE)
+      if (!(options.enable ?? process.env.WEBPACK_SERVE))
         return
 
       const pluginName = `${name}/webpack`
@@ -76,7 +76,7 @@ export default createUnplugin<Options>((options = {}) => {
     vite: {
       enforce: 'pre',
       apply(_, { command }) {
-        return command === 'serve'
+        return options.enable ?? command === 'serve'
       },
       configureServer(server) {
         const _print = server.printUrls
