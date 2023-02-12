@@ -1,4 +1,5 @@
 import type { ChildProcess } from 'child_process'
+import { createRequire } from 'module'
 import type { ChiiOptions } from 'chii'
 import type HtmlWebpackPlugin from 'html-webpack-plugin'
 import pick from 'lodash/pick'
@@ -110,4 +111,16 @@ export class ChiiServer {
       }
     })
   }
+}
+
+const _require = createRequire(import.meta.url)
+export function tryRequire(id: string, from?: string) {
+  try {
+    return _require(requireResolve(id, from))
+  }
+  catch (e) {}
+}
+export function requireResolve(id: string, from?: string) {
+  const options = from ? { paths: [from] } : undefined
+  return _require.resolve(id, options)
 }

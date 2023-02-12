@@ -3,7 +3,7 @@ import { bold, cyan, green } from 'kolorist'
 import type HtmlWebpackPluginType from 'html-webpack-plugin'
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import type { Options } from './types'
-import { ChiiServer } from './core'
+import { ChiiServer, tryRequire } from './core'
 
 type HtmlWebpackPlugin = typeof HtmlWebpackPluginType
 
@@ -32,15 +32,10 @@ export default createUnplugin<Options>((options = {}) => {
       const pluginName = `${name}/webpack`
       const logger = compiler.getInfrastructureLogger(pluginName)
 
-      let htmlPlugin: HtmlWebpackPlugin
-      try {
-        htmlPlugin = require(
-          'html-webpack-plugin',
-        )
-      }
-      catch (e) {
+      const m = tryRequire('html-webpack-plugin', compiler.context)
+      const htmlPlugin: HtmlWebpackPlugin = m.default ?? m
+      if (!htmlPlugin)
         return
-      }
 
       compiler.hooks.compilation.tap(pluginName, (compilation) => {
         // above html-webpack-plugin@4.x
