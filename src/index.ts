@@ -33,9 +33,9 @@ export default createUnplugin<Options>((options = {}) => {
       const logger = compiler.getInfrastructureLogger(pluginName)
 
       const m = tryRequire('html-webpack-plugin', compiler.context)
-      const htmlPlugin: HtmlWebpackPlugin = m.default ?? m
-      if (!htmlPlugin)
+      if (!m)
         return
+      const htmlPlugin: HtmlWebpackPlugin = m.default ?? m
 
       compiler.hooks.compilation.tap(pluginName, (compilation) => {
         // above html-webpack-plugin@4.x

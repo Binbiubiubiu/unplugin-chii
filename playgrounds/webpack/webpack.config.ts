@@ -5,7 +5,7 @@ import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import type { Configuration } from 'webpack'
 
-import unplugin from '../../src/webpack'
+import unplugin from 'unplugin-chii/webpack'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
