@@ -70,8 +70,8 @@
     "play:vite": "pnpm --filter ./playgrounds/vite serve",
     "play:webpack": "pnpm --filter ./playgrounds/webpack serve",
     "play:chii": "chii start --port 8080",
-    "prepublishOnly": "npm run lint && npm run build",
-    "release": "bumpp && npm publish",
+    "prepublishOnly": "npm run build",
+    "release": "npm run lint && bumpp && npm publish",
     "start": "esno src/index.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
